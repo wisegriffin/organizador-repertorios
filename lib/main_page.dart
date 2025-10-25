@@ -10,7 +10,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final _pages = [ListsPage(), Placeholder()];
+  final _destinations = [ListsPage(), Placeholder()];
 
   void _navigationBar(int index) {
     setState(() => _selectedIndex = index);
@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
         title: Text('My App Bar'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: _pages[_selectedIndex],
+      body: _destinations[_selectedIndex],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: _navigationBar,
