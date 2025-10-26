@@ -6,18 +6,6 @@ import 'package:organizador_repertorios/presentation/widgets/repertory_list_item
 class ListsPage extends StatelessWidget {
   const ListsPage({super.key});
 
-  PreferredSizeWidget? buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text('Repertories'),
-      actions: [
-        IconButton(
-          onPressed: () => print('add repertory'),
-          icon: Icon(Icons.add),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
