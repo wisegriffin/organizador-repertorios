@@ -18,27 +18,22 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentPage = _destinations[_selectedIndex];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('My App Bar'),
+        title: Text('Hymnum'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: _destinations[_selectedIndex],
+      body: currentPage,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: _navigateToSelected,
         destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label: 'home'),
+          NavigationDestination(icon: Icon(Icons.queue_music), label: 'home'),
           NavigationDestination(icon: Icon(Icons.settings), label: 'settings'),
         ],
       ),
-      floatingActionButton:
-          _selectedIndex == _destinations.indexOf(_destinations.first)
-          ? FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => print('pressed'),
-            )
-          : null,
     );
   }
 }

@@ -1,58 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:organizador_repertorios/presentation/states/repertory_provider.dart';
+import 'package:organizador_repertorios/presentation/widgets/repertory_list_item.dart';
 
-class ListsPage extends StatefulWidget {
+class ListsPage extends StatelessWidget {
   const ListsPage({super.key});
 
-  @override
-  State<ListsPage> createState() => _ListsPageState();
-}
-
-class _ListsPageState extends State<ListsPage> {
-  // TODO: refactor the repertory logic to a separate file
-  var repertories = ['Congregacionais', 'Palavrantiga', 'Stênio Marcius'];
-
-  void _addRepertory(String name) {
-    setState(() {
-      repertories.add(name);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        /// List of all repertories
-        Expanded(
-          child: ListView.builder(
-            itemCount: repertories.length,
-            itemBuilder: (context, index) =>
-                _Repertory(title: repertories[index]),
-          ),
+  PreferredSizeWidget? buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text('Repertories'),
+      actions: [
+        IconButton(
+          onPressed: () => print('add repertory'),
+          icon: Icon(Icons.add),
         ),
       ],
     );
   }
-}
-
-class _Repertory extends StatelessWidget {
-  const _Repertory({super.key, required this.title});
-
-  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(title),
-        tileColor: Theme.of(context).colorScheme.secondaryContainer,
-        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        subtitle: Text('tamanho da lista'),
-
-        // TODO: Handle trailing button OnPressed
-        trailing: IconButton(
-          onPressed: () => print('trailing pressed'),
-          icon: Icon(Icons.more_vert),
-        ),
+    return ChangeNotifierProvider(
+      create: (context) => RepertoryProvider(),
+      child: Builder(
+        builder: (context) {
+          final state = context.watch<RepertoryProvider>();
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.repertories.length,
+                  itemBuilder: (context, index) =>
+                      RepertoryListItem(title: state.repertories[index]),
+                ),
+              ),
+              Container(
+                alignment: Alignment.bottomRight,
+                padding: EdgeInsets.all(15),
+                child: IconButton.filled(
+                  tooltip: 'Add',
+                  onPressed: () =>
+                      state.addRepertory(state.repertories.length.toString()),
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
