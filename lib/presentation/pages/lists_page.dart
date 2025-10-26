@@ -8,13 +8,20 @@ class ListsPage extends StatefulWidget {
 }
 
 class _ListsPageState extends State<ListsPage> {
+  // TODO: refactor the repertory logic to a separate file
   var repertories = ['Congregacionais', 'Palavrantiga', 'Stênio Marcius'];
+
+  void _addRepertory(String name) {
+    setState(() {
+      repertories.add(name);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // List of all repertories
+        /// List of all repertories
         Expanded(
           child: ListView.builder(
             itemCount: repertories.length,
@@ -22,19 +29,13 @@ class _ListsPageState extends State<ListsPage> {
                 _Repertory(title: repertories[index]),
           ),
         ),
-
-        // TODO: A button in the bottom right to add repertories
-        ElevatedButton(
-          child: Icon(Icons.add),
-          onPressed: () => print('pressed'),
-        ),
       ],
     );
   }
 }
 
 class _Repertory extends StatelessWidget {
-  const _Repertory({required this.title});
+  const _Repertory({super.key, required this.title});
 
   final String title;
 

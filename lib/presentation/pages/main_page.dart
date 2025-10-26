@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/lists_page.dart';
+import 'package:organizador_repertorios/presentation/pages/lists_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -12,7 +12,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   final _destinations = [ListsPage(), Placeholder()];
 
-  void _navigationBar(int index) {
+  void _navigateToSelected(int index) {
     setState(() => _selectedIndex = index);
   }
 
@@ -26,12 +26,19 @@ class _MainPageState extends State<MainPage> {
       body: _destinations[_selectedIndex],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
-        onDestinationSelected: _navigationBar,
+        onDestinationSelected: _navigateToSelected,
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: 'home'),
           NavigationDestination(icon: Icon(Icons.settings), label: 'settings'),
         ],
       ),
+      floatingActionButton:
+          _selectedIndex == _destinations.indexOf(_destinations.first)
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => print('pressed'),
+            )
+          : null,
     );
   }
 }
