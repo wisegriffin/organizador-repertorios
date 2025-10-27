@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/presentation/pages/lists_page.dart';
+import 'package:organizador_repertorios/view/pages/lists_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
