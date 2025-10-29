@@ -9,17 +9,6 @@ class ListsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewmodel = ListsPageViewModel();
-    return ChangeNotifierProvider(
-      create: (context) => viewmodel,
-      child: _ListsPage(),
-    );
-  }
-}
-
-class _ListsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
     final viewmodel = context.watch<ListsPageViewModel>();
     return Stack(
       children: [
