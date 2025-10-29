@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/models/repertory.dart';
 import 'package:organizador_repertorios/views/widgets/trailing_repertory_options.dart';
-import 'package:organizador_repertorios/core/widgets/child_sized_bottom_sheet.dart';
+import 'package:organizador_repertorios/core/widgets/child_sized_modal_bottom_sheet.dart';
 
 class RepertoryListItem extends StatelessWidget {
   const RepertoryListItem(this._repertory, {super.key});
@@ -18,7 +18,7 @@ class RepertoryListItem extends StatelessWidget {
         subtitle: Text('Musics: ${_repertory.musics.length}'),
 
         trailing: IconButton(
-          onPressed: () => showChildSizedBottomSheet(context: context, child: TrailingRepertoryOptions(_repertory)),
+          onPressed: () => showChildSizedModalBottomSheet(context: context, child: TrailingRepertoryOptions(_repertory)),
           icon: Icon(Icons.more_vert),
         ),
       ),
