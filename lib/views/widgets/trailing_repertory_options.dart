@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/models/repertory.dart';
 import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
+import 'package:organizador_repertorios/views/widgets/delete_repertory_alert.dart';
 import 'package:provider/provider.dart';
 
 class TrailingRepertoryOptions extends StatelessWidget {
@@ -26,14 +27,17 @@ class TrailingRepertoryOptions extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 15),
           child: ElevatedButton.icon(
             onPressed: () {
-              viewmodel.deleteRepertory(_repertory);
               Navigator.pop(context);
+              showDeleteRepertoryAlert(context: context, repertory: _repertory);
             },
             label: Text(
               'Delete',
               style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
-            icon: Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
+            icon: Icon(
+              Icons.delete,
+              color: Theme.of(context).colorScheme.error,
+            ),
           ),
         ),
       ],
