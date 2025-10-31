@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organizador_repertorios/views/widgets/rename_repertory_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
 import 'package:organizador_repertorios/views/widgets/repertory_list_item.dart';
@@ -27,8 +28,7 @@ class ListsPage extends StatelessWidget {
           padding: EdgeInsets.all(15),
           child: IconButton.filled(
             tooltip: 'Add',
-            onPressed: () =>
-                viewmodel.addRepertory(viewmodel.repertories.length.toString()),
+            onPressed: () => showRenameRepertoryBottomSheet(null, context: context),
             icon: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Icon(Icons.add),

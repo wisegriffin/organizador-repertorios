@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/models/repertory.dart';
 import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
 import 'package:organizador_repertorios/views/widgets/delete_repertory_alert.dart';
+import 'package:organizador_repertorios/views/widgets/rename_repertory_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class TrailingRepertoryOptions extends StatelessWidget {
@@ -11,15 +12,15 @@ class TrailingRepertoryOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewmodel = context.watch<ListsPageViewModel>();
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ElevatedButton.icon(
-          // TODO: implement rename repertory
-          onPressed: () => print('rename'),
+          onPressed: () {
+            Navigator.pop(context);
+            showRenameRepertoryBottomSheet(_repertory, context: context);
+          },
           label: Text('Rename'),
           icon: Icon(Icons.abc),
         ),
