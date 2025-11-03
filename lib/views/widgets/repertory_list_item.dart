@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/models/repertory.dart';
+import 'package:organizador_repertorios/entities/repertory.dart';
 import 'package:organizador_repertorios/views/widgets/trailing_repertory_options.dart';
 import 'package:organizador_repertorios/core/widgets/child_sized_modal_bottom_sheet.dart';
 

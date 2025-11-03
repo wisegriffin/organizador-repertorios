@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/models/repertory.dart';
+import 'package:organizador_repertorios/entities/repertory.dart';
 import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
 import 'package:provider/provider.dart';
 

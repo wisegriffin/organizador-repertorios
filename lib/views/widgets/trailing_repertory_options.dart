@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/models/repertory.dart';
+import 'package:organizador_repertorios/entities/repertory.dart';
 import 'package:organizador_repertorios/views/widgets/delete_repertory_alert.dart';
 import 'package:organizador_repertorios/views/widgets/rename_repertory_bottom_sheet.dart';
 
