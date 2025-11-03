@@ -10,9 +10,11 @@ class RepertoryRepo implements IRepertoryRepo {
 
   RepertoryRepo(this._db);
 
+  //TODO: see if it needs to use .then()
+  
   @override
   Future<void> createRepertory(String name) async {
-    await _db.insert('repertories', {'name': name}).then((value) => print(value));
+    await _db.insert('repertories', {'name': name});
     _emitAll();
   }
 
