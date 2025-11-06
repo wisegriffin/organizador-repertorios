@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:organizador_repertorios/core/databases/db.dart';
+import 'package:organizador_repertorios/core/databases/local_db.dart';
 import 'package:organizador_repertorios/repos/implementations/repertory_repo.dart';
 import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
 import 'package:provider/provider.dart';

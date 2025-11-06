@@ -16,9 +16,8 @@ class ListsPageViewModel with ChangeNotifier {
   late final StreamSubscription<List<Repertory>> _subscription;
 
   Future<void> addRepertory(String name) async {
-    await repertoryRepo
-        .createRepertory(name)
-        .then((value) => notifyListeners());
+    await repertoryRepo.createRepertory(name);
+    notifyListeners();
   }
 
   void _listenRepertories() {
@@ -33,15 +32,13 @@ class ListsPageViewModel with ChangeNotifier {
   }
 
   Future<void> renameRepertory(Repertory repertory, String name) async {
-    await repertoryRepo
-        .renameRepertory(repertory.id, name)
-        .then((value) => notifyListeners());
+    await repertoryRepo.renameRepertory(repertory.id, name);
+    notifyListeners();
   }
 
   Future<void> deleteRepertory(Repertory repertory) async {
-    await repertoryRepo
-        .deleteRepertory(repertory.id)
-        .then((value) => notifyListeners());
+    await repertoryRepo.deleteRepertory(repertory.id);
+    notifyListeners();
   }
 
   @override
