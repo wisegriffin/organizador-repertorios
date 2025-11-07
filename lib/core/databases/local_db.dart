@@ -32,4 +32,5 @@ class LocalDB {
       name TEXT NOT NULL
     );
     ''';
+    
 }

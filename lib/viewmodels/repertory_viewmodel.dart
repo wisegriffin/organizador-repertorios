@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:organizador_repertorios/entities/music.dart';
 import 'package:organizador_repertorios/entities/repertory.dart';
 import 'package:organizador_repertorios/repos/contracts/irepertory_repo.dart';
 
-class ListsPageViewModel with ChangeNotifier {
-  ListsPageViewModel(this.repertoryRepo) {
+class RepertoryViewmodel with ChangeNotifier {
+  RepertoryViewmodel(this.repertoryRepo) {
     _listenRepertories();
     repertoryRepo.fetchAll();
   }
@@ -45,5 +46,10 @@ class ListsPageViewModel with ChangeNotifier {
   void dispose() {
     _subscription.cancel();
     super.dispose();
+  }
+
+  void addMusic(Repertory repertory, Music music) {
+    repertory.musics.add(music);
+    notifyListeners();
   }
 }

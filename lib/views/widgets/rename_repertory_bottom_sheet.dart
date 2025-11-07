@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
+import 'package:organizador_repertorios/viewmodels/repertory_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void showRenameRepertoryBottomSheet(
   Repertory? repertory, {
   required BuildContext context,
 }) {
-  final viewmodel = Provider.of<ListsPageViewModel>(context, listen: false);
+  final viewmodel = Provider.of<RepertoryViewmodel>(context, listen: false);
   String name = repertory == null ? '' : repertory.name;
   final textController = TextEditingController.fromValue(
     TextEditingValue(text: name),

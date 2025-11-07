@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/viewmodels/lists_page_viewmodel.dart';
+import 'package:organizador_repertorios/viewmodels/repertory_viewmodel.dart';
 import 'package:organizador_repertorios/entities/repertory.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +7,7 @@ void showDeleteRepertoryAlert({
   required BuildContext context,
   required Repertory repertory,
 }) {
-  final viewmodel = Provider.of<ListsPageViewModel>(context, listen: false);
+  final viewmodel = Provider.of<RepertoryViewmodel>(context, listen: false);
 
   showDialog(
     context: context,
