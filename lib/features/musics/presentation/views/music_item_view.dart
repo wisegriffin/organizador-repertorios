@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/entities/music.dart';
+import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
 
 class MusicItemView extends StatelessWidget {
   const MusicItemView(this._music, {super.key});

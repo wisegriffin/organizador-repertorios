@@ -1,10 +1,10 @@
-import 'package:organizador_repertorios/entities/music.dart';
+import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
 
 class Repertory {
   Repertory({required this.name, required this.id});
 
   final int id;
-  String name;
+  final String name;
   final List<Music> musics = List.empty(growable: true);
 
   static Repertory fromMap(Map<String, Object?> map) {
@@ -21,4 +21,11 @@ abstract class RepertoryTable {
   static const String columnName = 'name';
 
   static const List<String> allColumns = [columnId, columnName];
+    
+  static final String createTable= '''
+    CREATE TABLE IF NOT EXISTS repertories (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL
+    );
+    ''';
 }

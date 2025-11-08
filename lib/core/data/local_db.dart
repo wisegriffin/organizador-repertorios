@@ -1,3 +1,5 @@
+import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -23,14 +25,7 @@ class LocalDB {
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    await db.execute(_createRepertories);
+    await db.execute(RepertoryTable.createTable);
+    await db.execute(MusicTable.createTable);
   }
-
-  final String _createRepertories= '''
-    CREATE TABLE IF NOT EXISTS repertories (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL
-    );
-    ''';
-    
 }

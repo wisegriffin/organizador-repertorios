@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/views/pages/musics_page.dart';
-import 'package:organizador_repertorios/views/widgets/trailing_repertory_options.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
+import 'package:organizador_repertorios/features/musics/presentation/views/musics_page.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/trailing_repertory_options.dart';
 import 'package:organizador_repertorios/core/widgets/child_sized_modal_bottom_sheet.dart';
 
 class RepertoryListItem extends StatelessWidget {

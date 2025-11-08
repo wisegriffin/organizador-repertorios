@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/views/widgets/rename_repertory_bottom_sheet.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/rename_repertory_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-import 'package:organizador_repertorios/viewmodels/repertory_viewmodel.dart';
-import 'package:organizador_repertorios/views/widgets/repertory_list_item.dart';
-import 'package:organizador_repertorios/views/widgets/empty_list_message.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/repertory_list_item.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/empty_list_message.dart';
 
 class ListsPage extends StatelessWidget {
   const ListsPage({super.key});

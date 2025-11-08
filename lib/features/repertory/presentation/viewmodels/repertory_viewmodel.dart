@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:organizador_repertorios/entities/music.dart';
-import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/repos/contracts/irepertory_repo.dart';
+import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
+import 'package:organizador_repertorios/features/repertory/domain/contracts/irepertory_repo.dart';
 
 class RepertoryViewmodel with ChangeNotifier {
   RepertoryViewmodel(this.repertoryRepo) {
@@ -19,13 +19,6 @@ class RepertoryViewmodel with ChangeNotifier {
   Future<void> addRepertory(String name) async {
     await repertoryRepo.createRepertory(name);
     notifyListeners();
-  }
-
-  void _listenRepertories() {
-    _subscription = repertoryRepo.watchAll().listen((data) {
-      repertories = data;
-      notifyListeners();
-    });
   }
 
   Repertory? getRepertoryByIndex(int index) {
@@ -51,5 +44,12 @@ class RepertoryViewmodel with ChangeNotifier {
   void addMusic(Repertory repertory, Music music) {
     repertory.musics.add(music);
     notifyListeners();
+  }
+
+  void _listenRepertories() {
+    _subscription = repertoryRepo.watchAll().listen((data) {
+      repertories = data;
+      notifyListeners();
+    });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/views/widgets/delete_repertory_alert.dart';
-import 'package:organizador_repertorios/views/widgets/rename_repertory_bottom_sheet.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/delete_repertory_alert.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/rename_repertory_bottom_sheet.dart';
 
 class TrailingRepertoryOptions extends StatelessWidget {
   const TrailingRepertoryOptions(this._repertory, {super.key});

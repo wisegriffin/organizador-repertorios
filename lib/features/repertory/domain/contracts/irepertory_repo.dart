@@ -1,4 +1,4 @@
-import 'package:organizador_repertorios/entities/repertory.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 
 abstract class IRepertoryRepo {
   

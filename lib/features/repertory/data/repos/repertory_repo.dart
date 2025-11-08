@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/repos/contracts/irepertory_repo.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
+import 'package:organizador_repertorios/features/repertory/domain/contracts/irepertory_repo.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RepertoryRepo implements IRepertoryRepo {

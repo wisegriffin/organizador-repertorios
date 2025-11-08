@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/viewmodels/repertory_viewmodel.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void showRenameRepertoryBottomSheet(

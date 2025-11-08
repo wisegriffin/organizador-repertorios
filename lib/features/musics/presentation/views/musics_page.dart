@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:organizador_repertorios/entities/music.dart';
-import 'package:organizador_repertorios/entities/repertory.dart';
-import 'package:organizador_repertorios/viewmodels/repertory_viewmodel.dart';
-import 'package:organizador_repertorios/views/widgets/music_item_view.dart';
+import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
+import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
+import 'package:organizador_repertorios/features/musics/presentation/views/music_item_view.dart';
 import 'package:provider/provider.dart';
 
 class MusicsPage extends StatelessWidget {
@@ -23,14 +23,21 @@ class MusicsPage extends StatelessWidget {
           IconButton(
             tooltip: 'add music',
             onPressed: () {
-              viewmodel.addMusic(_repertory, Music(id: 0, title: _repertory.musics.length.toString()));
+              viewmodel.addMusic(
+                _repertory,
+                Music(
+                  id: _repertory.musics.length,
+                  title: _repertory.musics.length.toString(),
+                ),
+              );
             },
-            icon: Icon(Icons.add), 
+            icon: Icon(Icons.add),
           ),
         ],
       ),
       body: ListView.builder(
-        itemBuilder: (context, index) => MusicItemView(_repertory.musics[index]),
+        itemBuilder: (context, index) =>
+            MusicItemView(_repertory.musics[index]),
         itemCount: _repertory.musics.length,
       ),
     );
