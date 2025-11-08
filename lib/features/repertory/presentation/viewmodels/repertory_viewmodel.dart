@@ -6,18 +6,18 @@ import 'package:organizador_repertorios/features/repertory/domain/entities/reper
 import 'package:organizador_repertorios/features/repertory/domain/contracts/irepertory_repo.dart';
 
 class RepertoryViewmodel with ChangeNotifier {
-  RepertoryViewmodel(this.repertoryRepo) {
+  RepertoryViewmodel(this._repertoryRepo) {
     _listenRepertories();
-    repertoryRepo.fetchAll();
+    _repertoryRepo.fetchAll();
   }
 
-  final IRepertoryRepo repertoryRepo;
+  final IRepertoryRepo _repertoryRepo;
   List<Repertory> repertories = List.empty(growable: true);
 
   late final StreamSubscription<List<Repertory>> _subscription;
 
   Future<void> addRepertory(String name) async {
-    await repertoryRepo.createRepertory(name);
+    await _repertoryRepo.createRepertory(name);
     notifyListeners();
   }
 
@@ -26,12 +26,12 @@ class RepertoryViewmodel with ChangeNotifier {
   }
 
   Future<void> renameRepertory(Repertory repertory, String name) async {
-    await repertoryRepo.renameRepertory(repertory.id, name);
+    await _repertoryRepo.renameRepertory(repertory.id, name);
     notifyListeners();
   }
 
   Future<void> deleteRepertory(Repertory repertory) async {
-    await repertoryRepo.deleteRepertory(repertory.id);
+    await _repertoryRepo.deleteRepertory(repertory.id);
     notifyListeners();
   }
 
@@ -47,7 +47,7 @@ class RepertoryViewmodel with ChangeNotifier {
   }
 
   void _listenRepertories() {
-    _subscription = repertoryRepo.watchAll().listen((data) {
+    _subscription = _repertoryRepo.watchAll().listen((data) {
       repertories = data;
       notifyListeners();
     });

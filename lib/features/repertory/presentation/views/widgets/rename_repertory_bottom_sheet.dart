@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organizador_repertorios/core/utils/validation.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -61,9 +62,7 @@ class _BottomSheetContent extends StatelessWidget {
             child: Form(
               key: formKey,
               child: TextFormField(
-                validator: (value) {
-                  return value == null || value.isEmpty ? 'Type the name' : null;
-                },
+                validator: (value) => validateTextNotEmpty(value, 'Type the name'),
                 decoration: InputDecoration(label: Text('Name')),
                 controller: textController,
                 maxLength: 50,

@@ -9,10 +9,8 @@ class MusicItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
-      child: ListTile(
-        title: Text(_music.title),
-        subtitle: Text(_music.author),
-      ),
+      child: ListTile(title: Text(_music.title), subtitle: Text(_music.author)),
     );
   }
 }
+
