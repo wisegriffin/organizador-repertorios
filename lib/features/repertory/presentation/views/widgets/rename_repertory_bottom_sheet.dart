@@ -12,51 +12,89 @@ void showRenameRepertoryBottomSheet(
   final textController = TextEditingController.fromValue(
     TextEditingValue(text: name),
   );
+  final formKey = GlobalKey<FormState>();
 
   showModalBottomSheet(
     showDragHandle: true,
     context: context,
     isScrollControlled: true,
-    builder: (context) => SingleChildScrollView(
-      child: Padding(
-        padding: MediaQuery.viewInsetsOf(context),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextField(
-                onChanged: (value) => name = value,
+    useSafeArea: true,
+    builder: (context) => AnimatedPadding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      duration: Durations.short2,
+      child: _BottomSheetContent(
+        textController: textController,
+        repertoryViewmodel: viewmodel,
+        repertory: repertory,
+        formKey: formKey,
+      ),
+    ),
+  );
+}
+
+class _BottomSheetContent extends StatelessWidget {
+   const _BottomSheetContent({
+    required this.textController,
+    required this.repertoryViewmodel,
+    required this.repertory,
+    required this.formKey,
+  });
+
+  final Repertory? repertory;
+  final RepertoryViewmodel repertoryViewmodel;
+  final TextEditingController textController;
+  final GlobalKey<FormState> formKey;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 10,
+        right: 10,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Form(
+              key: formKey,
+              child: TextFormField(
+                validator: (value) {
+                  return value == null || value.isEmpty ? 'Type the name' : null;
+                },
                 decoration: InputDecoration(label: Text('Name')),
                 controller: textController,
-                autofocus: true,
                 maxLength: 50,
                 keyboardType: TextInputType.text,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OutlinedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('Cancel'),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    if (repertory == null) {
-                      viewmodel.addRepertory(name);
-                    } else {
-                      viewmodel.renameRepertory(repertory, name);
-                    }
-                    Navigator.pop(context);
-                  },
-                  child: Text('Save'),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Cancel'),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  if (!formKey.currentState!.validate()) return;
+                  if (repertory == null) {
+                    repertoryViewmodel.addRepertory(textController.text.trim());
+                  } else {
+                    repertoryViewmodel.renameRepertory(repertory!, textController.text.trim());
+                  }
+                  Navigator.pop(context);
+                },
+                child: Text('Save'),
+              ),
+            ],
+          ),
+        ],
       ),
-    ),
-  );
+    );
+  }
 }
