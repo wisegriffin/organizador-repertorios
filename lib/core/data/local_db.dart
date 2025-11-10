@@ -1,4 +1,5 @@
 import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/repertory/data/repertory_music_table.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -9,23 +10,39 @@ class LocalDB {
   static final LocalDB instance = LocalDB._();
   static Database? _database;
 
+  static final int currentVersion = 2;
+
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database =  await _initDatabase();
+    _database = await _initDatabase();
     return _database!;
   }
 
   Future<Database> _initDatabase() async {
     return openDatabase(
       join(await getDatabasesPath(), 'local.db'),
-      version: 1,
+      version: currentVersion,
       onCreate: (db, version) => _onCreate(db, version),
+      onUpgrade: (db, oldVersion, newVersion) =>
+          _onUpgrade(db, oldVersion, newVersion),
     );
   }
 
   Future<void> _onCreate(Database db, int version) async {
+    await db.execute('PRAGMA foreign_keys = ON');
+
     await db.execute(RepertoryTable.createTable);
     await db.execute(MusicTable.createTable);
+    await db.execute(RepertoryMusicTable.createTable);
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('PRAGMA foreign_keys = ON');
+
+      await db.execute(MusicTable.createTable);
+      await db.execute(RepertoryMusicTable.createTable);
+    }
   }
 }

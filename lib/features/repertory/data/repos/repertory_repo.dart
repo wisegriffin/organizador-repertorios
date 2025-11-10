@@ -23,7 +23,7 @@ class RepertoryRepo implements IRepertoryRepo {
   Future<void> deleteRepertory(int id) async {
     await _db.delete(
       RepertoryTable.tableName,
-      where: '${RepertoryTable.columnId} == ?',
+      where: '${RepertoryTable.columnId} = ?',
       whereArgs: [id],
     );
     _emitAll();
@@ -34,7 +34,7 @@ class RepertoryRepo implements IRepertoryRepo {
     await _db.update(
       RepertoryTable.tableName,
       {RepertoryTable.columnName: name},
-      where: '${RepertoryTable.columnId} == ?',
+      where: '${RepertoryTable.columnId} = ?',
       whereArgs: [id],
     );
     _emitAll();

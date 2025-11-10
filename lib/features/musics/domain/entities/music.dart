@@ -2,10 +2,10 @@ class Music {
   Music({
     required this.id,
     required this.title,
-    this.author = 'Unknown',
+    String? author,
     this.content,
     this.key,
-  });
+  }) : author = author ?? 'Unknown';
 
   final int id;
   final String title;
@@ -13,7 +13,7 @@ class Music {
   final String? content;
   final String? key;
 
-  Music fromMap(Map<String, Object?> map) {
+  static Music fromMap(Map<String, Object?> map) {
     Music music = Music(
       id: map[MusicTable.columnId] as int,
       title: map[MusicTable.columnTitle].toString(),
@@ -22,6 +22,17 @@ class Music {
       key: map[MusicTable.columnKey].toString(),
     );
     return music;
+  }
+
+  Map<String, Object?> toMap() {
+    final map = {
+      MusicTable.columnId: id,
+      MusicTable.columnTitle: title,
+      MusicTable.columnAuthor: author,
+      MusicTable.columnContent: content,
+      MusicTable.columnKey: key,
+    };
+    return map;
   }
 }
 
@@ -42,12 +53,12 @@ abstract class MusicTable {
   ];
 
   static String createTable = '''
-    CREATE TABLE IF NOT EXISTS music (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      author TEXT NOT NULL,
-      content TEXT,
-      key TEXT
+    CREATE TABLE IF NOT EXISTS ${MusicTable.tableName} (
+      ${MusicTable.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${MusicTable.columnTitle} TEXT NOT NULL,
+      ${MusicTable.columnAuthor} TEXT NOT NULL,
+      ${MusicTable.columnContent} TEXT,
+      ${MusicTable.columnKey} TEXT
     );
     ''';
 }

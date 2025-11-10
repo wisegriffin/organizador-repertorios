@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:organizador_repertorios/core/data/local_db.dart';
+import 'package:organizador_repertorios/features/musics/data/repos/music_repo.dart';
 import 'package:organizador_repertorios/features/repertory/data/repos/repertory_repo.dart';
+import 'package:organizador_repertorios/features/repertory/domain/repertory_music_service.dart';
 import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,8 +18,15 @@ void main() async {
     _,
   ) {
     runApp(
-      ChangeNotifierProvider(
-        create: (context) => RepertoryViewmodel(RepertoryRepo(localDB)),
+      MultiProvider(
+        providers: [
+          // REPERTORIES
+          ChangeNotifierProvider(
+            create: (context) => RepertoryViewmodel(RepertoryRepo(localDB)),
+          ),
+          Provider(create: (context) => RepertoryMusicService(localDB)),
+          Provider(create: (context) => MusicRepo(localDB)),
+        ],
         child: App(),
       ),
     );
