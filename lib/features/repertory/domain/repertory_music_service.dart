@@ -9,10 +9,6 @@ class RepertoryMusicService {
   RepertoryMusicService(this._db);
 
   final Database _db;
-
-  final StreamController<List<Music>> _streamController =
-      StreamController.broadcast();
-
   final _controllers = <int, StreamController<List<Music>>>{};
 
   Future<void> addMusicToRepertory(Repertory repertory, Music music) async {
@@ -26,6 +22,7 @@ class RepertoryMusicService {
   }
 
   Stream<List<Music>> watchAllFromRepertory(Repertory repertory) {
+    _emitAllFor(repertory.id);
     // Return a new stream for the id of repertory if not already exits
     return _controllers.putIfAbsent(repertory.id, () {
       final controller = StreamController<List<Music>>.broadcast();
@@ -46,10 +43,10 @@ class RepertoryMusicService {
       [repertoryId],
     );
     final List<Music> musics = result.map((e) => Music.fromMap(e)).toList();
-    _streamController.add(musics);
+    _controllers[repertoryId]?.add(musics);
   }
 
   void dispose() {
-    _streamController.close();
+    _controllers.forEach((key, value) => _controllers[key]!.close());
   }
 }

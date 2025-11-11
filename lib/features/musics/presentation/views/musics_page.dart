@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/core/utils/validation.dart';
 import 'package:organizador_repertorios/features/musics/data/repos/music_repo.dart';
 import 'package:organizador_repertorios/features/musics/domain/contracts/imusic_repo.dart';
-import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:organizador_repertorios/features/repertory/domain/repertory_music_service.dart';
 import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
@@ -16,9 +15,9 @@ class MusicsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final repertoryVM = context.watch<RepertoryViewmodel>();
-    final repertoryMusicService = context.watch<RepertoryMusicService>();
-    final musicRepo = context.watch<MusicRepo>();
+    final repertoryVM = context.read<RepertoryViewmodel>();
+    final repertoryMusicService = context.read<RepertoryMusicService>();
+    final musicRepo = context.read<MusicRepo>();
 
     return Scaffold(
       appBar: AppBar(
@@ -44,10 +43,16 @@ class MusicsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) =>
-            MusicItemView(_repertory.musics[index]),
-        itemCount: _repertory.musics.length,
+      body: StreamBuilder(
+        stream: repertoryMusicService.watchAllFromRepertory(_repertory),
+        builder: (context, asyncSnapshot) {
+          if (!asyncSnapshot.hasData) return Text('No musics');
+          return ListView.builder(
+            itemBuilder: (context, index) =>
+                MusicItemView(asyncSnapshot.data!.elementAt(index)),
+            itemCount: asyncSnapshot.data?.length,
+          );
+        }
       ),
     );
   }
