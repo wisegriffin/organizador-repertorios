@@ -14,10 +14,11 @@ class Music {
   final String? key;
 
   static Music fromMap(Map<String, Object?> map) {
+    final author = map[MusicTable.columnAuthor].toString();
     Music music = Music(
       id: map[MusicTable.columnId] as int,
       title: map[MusicTable.columnTitle].toString(),
-      author: map[MusicTable.columnAuthor].toString(),
+      author: author.isNotEmpty ? author : null,
       content: map[MusicTable.columnContent].toString(),
       key: map[MusicTable.columnKey].toString(),
     );
@@ -52,7 +53,8 @@ abstract class MusicTable {
     columnKey,
   ];
 
-  static String createTable = '''
+  static String createTable =
+      '''
     CREATE TABLE IF NOT EXISTS ${MusicTable.tableName} (
       ${MusicTable.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${MusicTable.columnTitle} TEXT NOT NULL,

@@ -23,7 +23,6 @@ class MusicRepo extends IMusicRepo {
 
   @override
   Future<void> deleteMusic(int id) async {
-    // TODO: implement deleteMusic
-    throw UnimplementedError();
+    await _db.delete(MusicTable.tableName, where: '${MusicTable.columnId} = $id');
   }
 }

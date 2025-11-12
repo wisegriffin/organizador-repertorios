@@ -21,6 +21,19 @@ class RepertoryMusicService {
     _emitAllFor(repertory.id);
   }
 
+  Future<void> removeMusicFromRepertory(
+    Repertory repertory,
+    Music music,
+  ) async {
+    await _db.delete(
+      RepertoryMusicTable.tableName,
+      where: '''${RepertoryMusicTable.musicId} = ${music.id} 
+        AND ${RepertoryMusicTable.repertoryId} = ${repertory.id}''',
+    );
+
+    _emitAllFor(repertory.id);
+  }
+
   Stream<List<Music>> watchAllFromRepertory(Repertory repertory) {
     _emitAllFor(repertory.id);
     // Return a new stream for the id of repertory if not already exits

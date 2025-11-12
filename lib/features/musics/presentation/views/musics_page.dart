@@ -46,13 +46,13 @@ class MusicsPage extends StatelessWidget {
       body: StreamBuilder(
         stream: repertoryMusicService.watchAllFromRepertory(_repertory),
         builder: (context, asyncSnapshot) {
-          if (!asyncSnapshot.hasData) return Text('No musics');
+          if (!asyncSnapshot.hasData) return Center(child: Text('No musics'));
           return ListView.builder(
             itemBuilder: (context, index) =>
-                MusicItemView(asyncSnapshot.data!.elementAt(index)),
+                MusicItemView(asyncSnapshot.data!.elementAt(index), _repertory),
             itemCount: asyncSnapshot.data?.length,
           );
-        }
+        },
       ),
     );
   }
@@ -69,6 +69,7 @@ void showCreateMusicDialog(
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final authorController = TextEditingController();
+  final keyController = TextEditingController();
 
   showDialog(
     context: context,
@@ -95,6 +96,10 @@ void showCreateMusicDialog(
                       controller: authorController,
                       decoration: InputDecoration(label: Text('Author')),
                     ),
+                    TextFormField(
+                      controller: keyController,
+                      decoration: InputDecoration(label: Text('Key')),
+                    ),
                   ],
                 ),
               ),
@@ -118,9 +123,10 @@ void showCreateMusicDialog(
                             .createMusic(
                               title: titleController.text.trim(),
                               author: authorController.text.trim(),
+                              key: keyController.text.trim(),
                             )
                             .then(
-                            // Add to the repertory
+                              // Add to the repertory
                               (value) => repertoryMusicService
                                   .addMusicToRepertory(repertory, value),
                             );

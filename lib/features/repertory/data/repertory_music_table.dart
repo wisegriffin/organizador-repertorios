@@ -12,8 +12,8 @@ class RepertoryMusicTable {
       $id INTEGER PRIMARY KEY AUTOINCREMENT,
       $repertoryId INTEGER NOT NULL,
       $musicId INTEGER NOT NULL,
-      FOREIGN KEY ($repertoryId) REFERENCES ${RepertoryTable.tableName} (${RepertoryTable.columnId}),
-      FOREIGN KEY ($musicId) REFERENCES ${MusicTable.tableName} (${MusicTable.columnId})
+      FOREIGN KEY ($repertoryId) REFERENCES ${RepertoryTable.tableName} (${RepertoryTable.columnId}) ON DELETE CASCADE,
+      FOREIGN KEY ($musicId) REFERENCES ${MusicTable.tableName} (${MusicTable.columnId}) ON DELETE CASCADE
     );
     ''';
 }

@@ -10,7 +10,7 @@ class LocalDB {
   static final LocalDB instance = LocalDB._();
   static Database? _database;
 
-  static final int currentVersion = 2;
+  static final int currentVersion = 3;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -43,6 +43,14 @@ class LocalDB {
 
       await db.execute(MusicTable.createTable);
       await db.execute(RepertoryMusicTable.createTable);
+    }
+    
+    if (oldVersion < 3) {
+      await db.execute('DROP TABLE IF EXISTS ${RepertoryMusicTable.tableName}');
+      await db.execute('DROP TABLE IF EXISTS ${MusicTable.tableName}');
+      await db.execute('DROP TABLE IF EXISTS ${RepertoryTable.tableName}');
+
+      await _onCreate(db, newVersion);
     }
   }
 }
