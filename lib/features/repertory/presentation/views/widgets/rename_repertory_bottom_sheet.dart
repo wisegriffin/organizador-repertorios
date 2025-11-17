@@ -21,7 +21,9 @@ void showRenameRepertoryBottomSheet(
     isScrollControlled: true,
     useSafeArea: true,
     builder: (context) => AnimatedPadding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       duration: Durations.short2,
       child: _BottomSheetContent(
         textController: textController,
@@ -33,8 +35,8 @@ void showRenameRepertoryBottomSheet(
   );
 }
 
-class _BottomSheetContent extends StatelessWidget {
-   const _BottomSheetContent({
+class _BottomSheetContent extends StatefulWidget {
+  const _BottomSheetContent({
     required this.textController,
     required this.repertoryViewmodel,
     required this.repertory,
@@ -46,25 +48,38 @@ class _BottomSheetContent extends StatelessWidget {
   final TextEditingController textController;
   final GlobalKey<FormState> formKey;
 
+  @override
+  State<_BottomSheetContent> createState() => _BottomSheetContentState();
+}
+
+class _BottomSheetContentState extends State<_BottomSheetContent> {
+  final FocusNode focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => focusNode.requestFocus(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: 10,
-        right: 10,
-      ),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Form(
-              key: formKey,
+              key: widget.formKey,
               child: TextFormField(
-                validator: (value) => validateTextNotEmpty(value, 'Type the name'),
+                focusNode: focusNode,
+                validator: (value) =>
+                    validateTextNotEmpty(value, 'Type the name'),
                 decoration: InputDecoration(label: Text('Name')),
-                controller: textController,
+                controller: widget.textController,
                 maxLength: 50,
                 keyboardType: TextInputType.text,
               ),
@@ -80,11 +95,16 @@ class _BottomSheetContent extends StatelessWidget {
               ),
               OutlinedButton(
                 onPressed: () {
-                  if (!formKey.currentState!.validate()) return;
-                  if (repertory == null) {
-                    repertoryViewmodel.addRepertory(textController.text.trim());
+                  if (!widget.formKey.currentState!.validate()) return;
+                  if (widget.repertory == null) {
+                    widget.repertoryViewmodel.addRepertory(
+                      widget.textController.text.trim(),
+                    );
                   } else {
-                    repertoryViewmodel.renameRepertory(repertory!, textController.text.trim());
+                    widget.repertoryViewmodel.renameRepertory(
+                      widget.repertory!,
+                      widget.textController.text.trim(),
+                    );
                   }
                   Navigator.pop(context);
                 },

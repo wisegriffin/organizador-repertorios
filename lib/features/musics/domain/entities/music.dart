@@ -35,6 +35,17 @@ class Music {
     };
     return map;
   }
+
+  Music copy() {
+    Music music = Music(
+      id: id,
+      title: title,
+      author: author,
+      content: content,
+      key: key,
+    );
+    return music;
+  }
 }
 
 abstract class MusicTable {

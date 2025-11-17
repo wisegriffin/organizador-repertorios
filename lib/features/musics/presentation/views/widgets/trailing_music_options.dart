@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/musics/presentation/views/music_content_view.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/delete_music_alert.dart';
 
@@ -20,7 +21,13 @@ class TrailingMusicOptions extends StatelessWidget {
       children: [
         // Edit button
         ElevatedButton.icon(
-          onPressed: () => print('edit'),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MusicContentView(_music, acessMode: AcessMode.edit,)),
+            );
+          },
           label: Text('Edit'),
           icon: Icon(Icons.edit),
         ),

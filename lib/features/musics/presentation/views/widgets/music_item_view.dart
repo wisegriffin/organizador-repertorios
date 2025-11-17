@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/core/widgets/child_sized_modal_bottom_sheet.dart';
 import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/musics/presentation/views/music_content_view.dart';
 import 'package:organizador_repertorios/features/musics/presentation/views/widgets/trailing_music_options.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 
@@ -23,6 +24,10 @@ class MusicItemView extends StatelessWidget {
             child: TrailingMusicOptions(_music, _repertory),
           ),
           icon: Icon(Icons.more_vert),
+        ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder:  (context) => MusicContentView(_music)),
         ),
       ),
     );

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/core/utils/validation.dart';
 import 'package:organizador_repertorios/features/musics/data/repos/music_repo.dart';
 import 'package:organizador_repertorios/features/musics/domain/contracts/imusic_repo.dart';
+import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
+import 'package:organizador_repertorios/features/musics/presentation/viewmodels/music_viewmodel.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:organizador_repertorios/features/repertory/domain/repertory_music_service.dart';
 import 'package:organizador_repertorios/features/repertory/presentation/viewmodels/repertory_viewmodel.dart';
@@ -18,6 +20,7 @@ class MusicsPage extends StatelessWidget {
     final repertoryVM = context.read<RepertoryViewmodel>();
     final repertoryMusicService = context.read<RepertoryMusicService>();
     final musicRepo = context.read<MusicRepo>();
+    final musicVM = context.watch<MusicViewmodel>();
 
     return Scaffold(
       appBar: AppBar(
@@ -48,8 +51,24 @@ class MusicsPage extends StatelessWidget {
         builder: (context, asyncSnapshot) {
           if (!asyncSnapshot.hasData) return Center(child: Text('No musics'));
           return ListView.builder(
-            itemBuilder: (context, index) =>
-                MusicItemView(asyncSnapshot.data!.elementAt(index), _repertory),
+            itemBuilder: (context, index) {
+              final musicId = asyncSnapshot.data!.elementAt(index);
+
+              return FutureBuilder(
+                future: musicVM.getMusic(musicId),
+                builder: (context, asyncSnapshot) {
+
+                  if (!asyncSnapshot.hasData) {
+                    return SizedBox(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  
+                  final music = asyncSnapshot.data;
+                  return MusicItemView(music!, _repertory);
+                }
+              );
+            },
             itemCount: asyncSnapshot.data?.length,
           );
         },

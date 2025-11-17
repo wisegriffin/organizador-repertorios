@@ -9,7 +9,7 @@ class RepertoryMusicService {
   RepertoryMusicService(this._db);
 
   final Database _db;
-  final _controllers = <int, StreamController<List<Music>>>{};
+  final _controllers = <int, StreamController<List<int>>>{};
 
   Future<void> addMusicToRepertory(Repertory repertory, Music music) async {
     // Create a relation in the database
@@ -34,11 +34,11 @@ class RepertoryMusicService {
     _emitAllFor(repertory.id);
   }
 
-  Stream<List<Music>> watchAllFromRepertory(Repertory repertory) {
+  Stream<List<int>> watchAllFromRepertory(Repertory repertory) {
     _emitAllFor(repertory.id);
     // Return a new stream for the id of repertory if not already exits
     return _controllers.putIfAbsent(repertory.id, () {
-      final controller = StreamController<List<Music>>.broadcast();
+      final controller = StreamController<List<int>>.broadcast();
       _emitAllFor(repertory.id);
       return controller;
     }).stream;
@@ -47,7 +47,7 @@ class RepertoryMusicService {
   void _emitAllFor(int repertoryId) async {
     final result = await _db.rawQuery(
       '''
-      SELECT * FROM ${MusicTable.tableName} 
+      SELECT ${MusicTable.columnId} FROM ${MusicTable.tableName} 
         WHERE ${MusicTable.columnId} IN (
           SELECT ${RepertoryMusicTable.musicId} FROM ${RepertoryMusicTable.tableName} 
             WHERE ${RepertoryMusicTable.repertoryId} = ?
@@ -55,7 +55,9 @@ class RepertoryMusicService {
       ''',
       [repertoryId],
     );
-    final List<Music> musics = result.map((e) => Music.fromMap(e)).toList();
+    final List<int> musics = result.map((e) {
+      return e[MusicTable.columnId] as int;
+    }).toList(); 
     _controllers[repertoryId]?.add(musics);
   }
 
