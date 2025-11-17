@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:organizador_repertorios/core/utils/validation.dart';
 import 'package:organizador_repertorios/features/musics/data/repos/music_repo.dart';
 import 'package:organizador_repertorios/features/musics/domain/contracts/imusic_repo.dart';
-import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
 import 'package:organizador_repertorios/features/musics/presentation/viewmodels/music_viewmodel.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:organizador_repertorios/features/repertory/domain/repertory_music_service.dart';
