@@ -5,8 +5,8 @@ import 'package:organizador_repertorios/features/repertory/presentation/viewmode
 import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/repertory_list_item.dart';
 import 'package:organizador_repertorios/features/repertory/presentation/views/widgets/empty_list_message.dart';
 
-class ListsPage extends StatelessWidget {
-  const ListsPage({super.key});
+class RepertoriesPage extends StatelessWidget {
+  const RepertoriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
