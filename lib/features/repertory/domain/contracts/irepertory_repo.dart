@@ -5,6 +5,7 @@ abstract class IRepertoryRepo {
   Future<void> createRepertory(String name);
   Future<void> deleteRepertory(int id);
   Future<void> renameRepertory(int id, String name);
+  Future<int> countMusics(int id);
   void fetchAll();
   Stream<List<Repertory>> watchAll();
 }

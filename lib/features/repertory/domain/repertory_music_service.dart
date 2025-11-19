@@ -57,7 +57,7 @@ class RepertoryMusicService {
     );
     final List<int> musics = result.map((e) {
       return e[MusicTable.columnId] as int;
-    }).toList(); 
+    }).toList();
     _controllers[repertoryId]?.add(musics);
   }
 

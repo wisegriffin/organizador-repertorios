@@ -1,11 +1,8 @@
-import 'package:organizador_repertorios/features/musics/domain/entities/music.dart';
-
-class Repertory {
+ class Repertory {
   Repertory({required this.name, required this.id});
 
   final int id;
   final String name;
-  final List<Music> musics = List.empty(growable: true);
 
   static Repertory fromMap(Map<String, Object?> map) {
     return Repertory(

@@ -21,9 +21,6 @@ class MusicContentView extends StatefulWidget {
 }
 
 class _MusicContentViewState extends State<MusicContentView> {
-  late final Music music;
-  late final Music initialMusic;
-
   final formKey = GlobalKey<FormState>();
   late final TextEditingController titleController;
   late final TextEditingController authorController;
@@ -31,18 +28,18 @@ class _MusicContentViewState extends State<MusicContentView> {
   late final TextEditingController contentController;
 
   late AcessMode acessMode;
+  late Music savedMusic;
 
   @override
   void initState() {
     super.initState();
-    music = widget._music;
     acessMode = widget.acessMode;
-    initialMusic = music.copy();
+    savedMusic = widget._music.copy();
 
-    titleController = TextEditingController(text: music.title);
-    authorController = TextEditingController(text: music.author);
-    keyController = TextEditingController(text: music.key);
-    contentController = TextEditingController(text: music.content);
+    titleController = TextEditingController(text: widget._music.title);
+    authorController = TextEditingController(text: widget._music.author);
+    keyController = TextEditingController(text: widget._music.key);
+    contentController = TextEditingController(text: widget._music.content);
   }
 
   @override
@@ -54,7 +51,7 @@ class _MusicContentViewState extends State<MusicContentView> {
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
-        if (!hasChanges()) {
+        if (!hasChanges(savedMusic)) {
           Navigator.of(context).pop();
           return;
         }
@@ -118,6 +115,15 @@ class _MusicContentViewState extends State<MusicContentView> {
                         key: keyController.text.trim(),
                         content: contentController.text,
                       );
+
+                    savedMusic = Music(
+                        id: widget._music.id,
+                        title: titleController.text.trim(),
+                        author: authorController.text.trim(),
+                        key: keyController.text.trim(),
+                        content: contentController.text,
+                      );
+
                       acessMode = AcessMode.view;
                       FocusScope.of(context).unfocus();
                     }),
@@ -190,10 +196,10 @@ class _MusicContentViewState extends State<MusicContentView> {
     );
   }
 
-  bool hasChanges() {
-    return titleController.text != initialMusic.title ||
-        authorController.text != initialMusic.author ||
-        contentController.text != initialMusic.content ||
-        keyController.text != initialMusic.key;
+  bool hasChanges(Music savedMusic) {
+    return titleController.text != savedMusic.title ||
+        authorController.text != savedMusic.author ||
+        contentController.text != savedMusic.content ||
+        keyController.text != savedMusic.key;
   }
 }

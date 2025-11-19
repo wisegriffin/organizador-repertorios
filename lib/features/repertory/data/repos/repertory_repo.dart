@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:organizador_repertorios/features/repertory/data/repertory_music_table.dart';
 import 'package:organizador_repertorios/features/repertory/domain/entities/repertory.dart';
 import 'package:organizador_repertorios/features/repertory/domain/contracts/irepertory_repo.dart';
 import 'package:sqflite/sqflite.dart';
@@ -52,5 +53,15 @@ class RepertoryRepo implements IRepertoryRepo {
   @override
   void fetchAll() {
     _emitAll();
+  }
+  
+  @override
+  Future<int> countMusics(int id) async {
+    final result = await _db.rawQuery('''
+      SELECT COUNT(${RepertoryMusicTable.musicId}) AS total FROM ${RepertoryMusicTable.tableName}
+        WHERE ${RepertoryMusicTable.repertoryId} = ?
+      ''', [id]);
+
+      return result.single['total'] as int;
   }
 }

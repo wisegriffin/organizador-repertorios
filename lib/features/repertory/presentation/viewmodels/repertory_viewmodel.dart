@@ -36,6 +36,12 @@ class RepertoryViewmodel with ChangeNotifier {
     await _repertoryRepo.deleteRepertory(repertory.id);
   }
 
+  Future<int> countMusics(Repertory repertory) async {
+    final result = await _repertoryRepo.countMusics(repertory.id);
+    notifyListeners();
+    return result;
+  }
+
   @override
   void dispose() {
     _subscription.cancel();

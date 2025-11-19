@@ -1,5 +1,5 @@
 # Hymnum
-#### Video Demo:  <https://www.youtube.com/watch?v=xvFZjo5PgG0>
+#### Video Demo:  <https://youtube.com/shorts/z-14h0njxMk?feature=share>
 #### Description: 
 
 Hymnum is a prototype of a music repertory manager designed especially for worship ministries in churches. As a christian and member of a local church who serves in the worship team myself, i have long noticed that most Brazillian churches rely on apps to organize their repertories. However, despite being really popular among musicians, these apps are not designed to be used in churches or sight-reading during worship. 
